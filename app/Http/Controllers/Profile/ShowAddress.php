@@ -9,12 +9,14 @@ class ShowAddress extends Controller
 {
   public function __invoke(int $id)
   {
-    $faker = Faker\Factory::create();
+    $faker = Factory::create('pl_PL');
     $address = [
-      'postalCode' => $faker->postalCode
+      'street' => $faker->streetName(),
+      'number' => $faker->numberBetween(1,100),
+      'flat' => $faker->numberBetween(1,100),
+      'postalCode' => $faker->postcode(),
+      'city' => $faker->city(),
     ];
-
-    dd($address);
-
+    return view('users.showAddress', ['address' => $address]);
   }
 }

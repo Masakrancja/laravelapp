@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\Example2Controller;
@@ -83,6 +84,18 @@ Route::options($uri, [Example2Controller::class, 'options']);
 Route::get('/myusers', [MyUsersController::class, 'list'])
     ->name('get.users');
 
+Route::get('/myusers/test/{id}', [MyUsersController::class, 'testShow'])
+    ->name('get.users.test');
+
+Route::post('/myusers/test/{id}', [MyUsersController::class, 'testStore'])
+    ->name('post.users.test');
+
 Route::get('/myusers/{id}', [ProfileController::class, 'show']);
 
-Route::get('/myusers/{id}/address', ShowAddress::class);
+Route::get('/myusers/{id}/address', ShowAddress::class)
+->name('user.showAddress')
+->where(['id' => '[0-9]+']);
+
+//Route::resource('games', GameController::class);
+Route::resource('games', GameController::class)
+->only(['index', 'show']);
