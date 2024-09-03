@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HelloController;
-use App\Http\Controllers\Example2Controller;
-use App\Http\Controllers\MyUsersController;
-use App\Http\Controllers\Profile\ProfileController;
-use App\Http\Controllers\Profile\ShowAddress;
+use App\Http\Controllers\Users\UserController;
+// use App\Http\Controllers\HelloController;
+// use App\Http\Controllers\Example2Controller;
+// use App\Http\Controllers\MyUsersController;
+// use App\Http\Controllers\Profile\ProfileController;
+// use App\Http\Controllers\Profile\ShowAddress;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,26 +21,38 @@ use App\Http\Controllers\Profile\ShowAddress;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', MainController::class);
 
-Route::get('/hello/{name}', [HelloController::class, 'hello']);
 
-$uri = 'example/';
-Route::get($uri, fn() => 'GET ' . $uri);
-Route::post($uri, fn() => 'POST ' . $uri);
-Route::delete($uri, fn() => 'DELETE ' . $uri);
-Route::put($uri, fn() => 'PUT ' . $uri);
-Route::options($uri, fn() => 'OPTIONS ' . $uri);
+Route::get('users/', [UserController::class, 'list'])
+    ->name('get.users.list');
 
-$uri = 'example2/';
+Route::get('users/{userId}', [UserController::class, 'show'])
+    ->name('get.users.show')
+    ->where(['userId', '[1-9][0-9]{0,3}']);
 
-Route::get($uri, [Example2Controller::class, 'get']);
-Route::post($uri, [Example2Controller::class, 'post']);
-Route::put($uri, [Example2Controller::class, 'put']);
-Route::delete($uri, [Example2Controller::class, 'delete']);
-Route::options($uri, [Example2Controller::class, 'options']);
+
+
+
+
+
+
+// Route::get('/hello/{name}', [HelloController::class, 'hello']);
+
+// $uri = 'example/';
+// Route::get($uri, fn() => 'GET ' . $uri);
+// Route::post($uri, fn() => 'POST ' . $uri);
+// Route::delete($uri, fn() => 'DELETE ' . $uri);
+// Route::put($uri, fn() => 'PUT ' . $uri);
+// Route::options($uri, fn() => 'OPTIONS ' . $uri);
+
+// $uri = 'example2/';
+
+// Route::get($uri, [Example2Controller::class, 'get']);
+// Route::post($uri, [Example2Controller::class, 'post']);
+// Route::put($uri, [Example2Controller::class, 'put']);
+// Route::delete($uri, [Example2Controller::class, 'delete']);
+// Route::options($uri, [Example2Controller::class, 'options']);
 
 
 
@@ -81,21 +95,28 @@ Route::options($uri, [Example2Controller::class, 'options']);
 //     return $url;
 // });
 
-Route::get('/myusers', [MyUsersController::class, 'list'])
-    ->name('get.users');
+// Route::get('/myusers', [MyUsersController::class, 'list'])
+//     ->name('get.users');
 
-Route::get('/myusers/test/{id}', [MyUsersController::class, 'testShow'])
-    ->name('get.users.test');
+// Route::get('/myusers/test/{id}', [MyUsersController::class, 'testShow'])
+//     ->name('get.users.test');
 
-Route::post('/myusers/test/{id}', [MyUsersController::class, 'testStore'])
-    ->name('post.users.test');
+// Route::post('/myusers/test/{id}', [MyUsersController::class, 'testStore'])
+//     ->name('post.users.test');
 
-Route::get('/myusers/{id}', [ProfileController::class, 'show']);
+// Route::get('/myusers/{id}', [ProfileController::class, 'show']);
 
-Route::get('/myusers/{id}/address', ShowAddress::class)
-->name('user.showAddress')
-->where(['id' => '[0-9]+']);
+// Route::get('/myusers/{id}/address', ShowAddress::class)
+// ->name('user.showAddress')
+// ->where(['id' => '[0-9]+']);
 
 //Route::resource('games', GameController::class);
-Route::resource('games', GameController::class)
-->only(['index', 'show']);
+// Route::resource('games', GameController::class)
+//     ->only(['index', 'show']);
+
+Route::get('/games', [GameController::class, 'index'])
+    ->name('get.games.index');
+
+Route::get('/games/{id}', [GameController::class, 'show'])
+    ->name('get.games.show')
+    ->where(['id' => '[0-9]+']);

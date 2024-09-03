@@ -58,7 +58,9 @@ class MyUsersController extends Controller
     // return response()->view('users.profile', ['id' => 3], 201)
     // ->header('NewHeader','MyNewHeader');
 
-    return response()->json(['id' => $id]); 
+    //return response()->json(['id' => $id]); 
+
+    return view('users.show', ['id' => $id]);
 
   }
 
