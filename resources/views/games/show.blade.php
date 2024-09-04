@@ -2,11 +2,18 @@
 
 @section('content')
 <h4>Informacja o grze</h4>
-<div>
-  <p>Id: {{$game['id']}}</p>
-  <p>Tytuł: {{$game['title']}}</p>
-  <p>Kategoria: {{$game['category']}}</p>
-  <p>Rok Wydania: {{$game['year']}}</p>
-</div>
-<div><a href="{{route('get.games.index')}}">Porwót</a></div>
+@if ($game)
+  <div>
+    <p>Id: {{$game->id}}</p>
+    <p>Tytuł: {{$game->title}}</p>
+    <p>Opis: {{$game->description}}</p>
+    <p>Data wydania: {{substr($game->publication_date, 0, 10)}}</p>
+    <p>Ocena: {{$game->rate}} / 10</p>
+  </div>
+  <button class="btn btn-primary">Test</button>
+@else
+  @include('games.indexEmpty')
+@endif
+
+<div><a href="{{route('games.list')}}">Porwót</a></div>
 @endsection

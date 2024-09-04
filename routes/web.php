@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MainController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Users\UserController;
+
+//use App\Http\Controllers\Users\UserController;
 // use App\Http\Controllers\HelloController;
 // use App\Http\Controllers\Example2Controller;
 // use App\Http\Controllers\MyUsersController;
@@ -24,18 +25,23 @@ use App\Http\Controllers\Users\UserController;
 Route::get('/', MainController::class);
 
 
-Route::get('users/', [UserController::class, 'list'])
-    ->name('get.users.list');
+Route::get('/games/dashboard', [GameController::class, 'dashboard'])
+    ->name('games.dashboard');
 
-Route::get('users/{userId}', [UserController::class, 'show'])
-    ->name('get.users.show')
-    ->where(['userId', '[1-9][0-9]{0,3}']);
+Route::get('/games/list', [GameController::class, 'list'])
+    ->name('games.list');
+
+Route::get('/games/{id}', [GameController::class, 'show'])
+    ->name('games.show')
+    ->where(['id' => '[0-9]+']);
 
 
+// Route::get('users/', [UserController::class, 'list'])
+//     ->name('get.users.list');
 
-
-
-
+// Route::get('users/{userId}', [UserController::class, 'show'])
+//     ->name('get.users.show')
+//     ->where(['userId', '[1-9][0-9]{0,3}']);
 
 // Route::get('/hello/{name}', [HelloController::class, 'hello']);
 
@@ -114,9 +120,3 @@ Route::get('users/{userId}', [UserController::class, 'show'])
 // Route::resource('games', GameController::class)
 //     ->only(['index', 'show']);
 
-Route::get('/games', [GameController::class, 'index'])
-    ->name('get.games.index');
-
-Route::get('/games/{id}', [GameController::class, 'show'])
-    ->name('get.games.show')
-    ->where(['id' => '[0-9]+']);

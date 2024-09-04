@@ -24,16 +24,17 @@
   $success = session('success', false);
   @endphp
 
-  <div class="flash">
+  <!-- <div class="flash">
     <div class="{{ $success ? 'success' : 'fail'}}">
       {{$success ? 'Poprawnie przesłano formularz' : 'Błąd przesłania formularza'}}
     </div>
-  </div>
+  </div> -->
 
   <div class="sidebar">
     @section('sidebar')
     <ul>
-      <li><a href="{{route('get.games.index')}}">Lista</a></li>
+      <li><a href="{{route('games.dashboard')}}">Dashboard</a></li>
+      <li><a href="{{route('games.list')}}">Lista</a></li>
     </ul>
     @show
   </div>
