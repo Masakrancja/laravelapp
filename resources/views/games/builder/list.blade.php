@@ -9,18 +9,19 @@
       <th scope="col">Tytuł</th>
       <th scope="col">Wydawca</th>
       <th scope="col">Ocena</th>
+      <th scope="col">Kategoria </th>
       <th scope="col">Szczegóły</th>
     </tr>
     </thead>
     <tbody>
     @foreach ($games ?? [] as $game)
-    @include('games.listRow')
+    @include('games.builder.listRow')
   @endforeach
     </tbody>
   </table>
   {{$games->links()}}
 @else
-  @include('games.indexEmpty')
+  @include('games.builder.indexEmpty')
 @endif
 
 @endsection

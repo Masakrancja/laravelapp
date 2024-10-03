@@ -12,8 +12,8 @@
   </div>
   <button class="btn btn-primary">Test</button>
 @else
-  @include('games.indexEmpty')
+  @include('games.builder.indexEmpty')
 @endif
 
-<div><a href="{{route('games.list')}}">Porwót</a></div>
+<div><a href="{{route('games.b.list')}}">Porwót</a></div>
 @endsection

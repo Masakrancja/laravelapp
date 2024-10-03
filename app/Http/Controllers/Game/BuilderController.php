@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Game;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 
-class GameController extends Controller
+class BuilderController extends Controller
 {
 
     /**
@@ -14,10 +15,11 @@ class GameController extends Controller
      *  */
     public function dashboard(): View
     {
-        $games = DB::table('games')
-            ->select('id', 'title', 'publication_date', 'rate')
-            ->get()
-            ->toArray();
+        // $games = DB::table('games')
+        //     ->join('genres', 'games.genres_id', '=', 'genres.id')
+        //     ->select('games.id', 'title', 'publication_date', 'rate', 'genres.name')
+        //     ->get()
+        //     ->toArray();
 
         $stats = [
             'max' => DB::table('games')->max('rate'),
@@ -25,7 +27,7 @@ class GameController extends Controller
             'count' => DB::table('games')->count(),
             'avg' => DB::table('games')->avg('rate'),
         ];
-        return view('games.dashboard', ['stats' => $stats]);
+        return view('games.builder.dashboard', ['stats' => $stats]);
     }
 
 
@@ -35,11 +37,12 @@ class GameController extends Controller
     public function list(): View
     {
         $games = DB::table('games')
-            ->select(['id', 'title', 'genres_id', 'rate'])
+            ->select(['games.id', 'games.title', 'games.genres_id', 'games.rate', 'genres.name'])
+            ->join('genres', 'genres.id', '=', 'games.genres_id')
             ->simplePaginate(10);
 
         return view(
-            'games.list',
+            'games.builder.list',
             [
                 'games' => $games,
                 'currentPage' => $games->currentPage(),
@@ -91,7 +94,7 @@ class GameController extends Controller
             ->where('id', $id)
             ->first();
 
-        return view('games.show', ['game' => $game]);
+        return view('games.builder.show', ['game' => $game]);
 
         // $faker = Factory::create('pl_PL');
         // $game = [

@@ -44,15 +44,16 @@
       <th>Id</th>
       <th>Tytuł</th>
       <th>Rok wydania</th>
+      <th>Gatunek</th>
       <th>Ocena</th>
       <th>Szczegóły</th>
     </tr>
   </thead>
   <tbody>
     @forelse ($games ?? [] as $game)
-    @include('games.indexRow', ['item' => $game])
+    @include('games.eloquent.indexRow', ['item' => $game])
   @empty
-  @include('games.indexEmpty')
+  @include('games.eloquent.indexEmpty')
 @endforelse
   </tbody>
 </table>

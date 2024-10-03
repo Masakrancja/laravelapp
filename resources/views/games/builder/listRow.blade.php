@@ -3,5 +3,6 @@
   <td>{{$game->title}}</td>
   <td>{{$game->genres_id}}</td>
   <td>{{$game->rate}}</td>
-  <td><a href="{{route('games.show', ['id' => $game->id])}}">Szczegóły</a></td>
+  <td>{{$game->name}}</td>
+  <td><a href="{{route('games.b.show', ['id' => $game->id])}}">Szczegóły</a></td>
 </tr>

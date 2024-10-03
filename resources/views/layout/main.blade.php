@@ -33,8 +33,10 @@
   <div class="sidebar">
     @section('sidebar')
     <ul>
-      <li><a href="{{route('games.dashboard')}}">Dashboard</a></li>
-      <li><a href="{{route('games.list')}}">Lista</a></li>
+      <li><a href="{{route('games.b.dashboard')}}">Dashboard Builder</a></li>
+      <li><a href="{{route('games.b.list')}}">Lista Builder</a></li>
+      <li><a href="{{route('games.e.dashboard')}}">Dashboard Eloquent</a></li>
+      <li><a href="{{route('games.e.list')}}">Lista Eloquent</a></li>
     </ul>
     @show
   </div>

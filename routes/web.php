@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\GameController;
+use App\Http\Controllers\Game\BuilderController;
+use App\Http\Controllers\Game\EloquentController;
 use App\Http\Controllers\MainController;
 
 //use App\Http\Controllers\Users\UserController;
@@ -24,16 +25,32 @@ use App\Http\Controllers\MainController;
 
 Route::get('/', MainController::class);
 
+//Grupa builder
 
-Route::get('/games/dashboard', [GameController::class, 'dashboard'])
-    ->name('games.dashboard');
+Route::group(['prefix' => 'b/games/'], function () {
+    Route::get('dashboard', [BuilderController::class, 'dashboard'])
+        ->name('games.b.dashboard');
 
-Route::get('/games/list', [GameController::class, 'list'])
-    ->name('games.list');
+    Route::get('list', [BuilderController::class, 'list'])
+        ->name('games.b.list');
 
-Route::get('/games/{id}', [GameController::class, 'show'])
-    ->name('games.show')
-    ->where(['id' => '[0-9]+']);
+    Route::get('{id}', [BuilderController::class, 'show'])
+        ->name('games.b.show')
+        ->where(['id' => '[0-9]+']);
+});
+
+//Grupa eloquent
+Route::group(['prefix' => 'e/games/'], function () {
+    Route::get('dashboard', [EloquentController::class, 'dashboard'])
+        ->name('games.e.dashboard');
+
+    Route::get('list', [EloquentController::class, 'list'])
+        ->name('games.e.list');
+
+    Route::get('{id}', [EloquentController::class, 'show'])
+        ->name('games.e.show')
+        ->where(['id' => '[0-9]+']);
+});
 
 
 // Route::get('users/', [UserController::class, 'list'])
