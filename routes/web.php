@@ -23,34 +23,44 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', MainController::class);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/', MainController::class);
 
-//Grupa builder
+    //Grupa builder
 
-Route::group(['prefix' => 'b/games/'], function () {
-    Route::get('dashboard', [BuilderController::class, 'dashboard'])
-        ->name('games.b.dashboard');
+    Route::group(['prefix' => 'b/games/'], function () {
+        Route::get('dashboard', [BuilderController::class, 'dashboard'])
+            ->name('games.b.dashboard');
 
-    Route::get('list', [BuilderController::class, 'list'])
-        ->name('games.b.list');
+        Route::get('list', [BuilderController::class, 'list'])
+            ->name('games.b.list');
 
-    Route::get('{id}', [BuilderController::class, 'show'])
-        ->name('games.b.show')
-        ->where(['id' => '[0-9]+']);
+        Route::get('{id}', [BuilderController::class, 'show'])
+            ->name('games.b.show')
+            ->where(['id' => '[0-9]+']);
+    });
+
+    //Grupa eloquent
+    Route::group(['prefix' => 'e/games/'], function () {
+        Route::get('dashboard', [EloquentController::class, 'dashboard'])
+            ->name('games.e.dashboard');
+
+        Route::get('list', [EloquentController::class, 'list'])
+            ->name('games.e.list');
+
+        Route::get('{id}', [EloquentController::class, 'show'])
+            ->name('games.e.show')
+            ->where(['id' => '[0-9]+']);
+    });
+
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 });
 
-//Grupa eloquent
-Route::group(['prefix' => 'e/games/'], function () {
-    Route::get('dashboard', [EloquentController::class, 'dashboard'])
-        ->name('games.e.dashboard');
+Auth::routes();
 
-    Route::get('list', [EloquentController::class, 'list'])
-        ->name('games.e.list');
 
-    Route::get('{id}', [EloquentController::class, 'show'])
-        ->name('games.e.show')
-        ->where(['id' => '[0-9]+']);
-});
+
 
 
 // Route::get('users/', [UserController::class, 'list'])
@@ -136,4 +146,3 @@ Route::group(['prefix' => 'e/games/'], function () {
 //Route::resource('games', GameController::class);
 // Route::resource('games', GameController::class)
 //     ->only(['index', 'show']);
-
